@@ -14,6 +14,8 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 - 文档web端自适应显示，适合所有平台
 - ... (更多内容期待您的发现)
 
+### web端演示
+[Web端demo]()
 
 ## 如何开始
 
@@ -29,28 +31,28 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 4. 在Atom中添加项目文件夹`Ctrl+Alt+O`，并指向刚创建的文件夹
 
 5. 在Atom刚创建的项目下新建`config.json`文件，并输入一下内容：
-```json
+```javascript
 	{
-	    "name": "(您的文库名称，为空或不设置显示默认名)",
-	    "ver": "(文本版本号或作者，为空不显示，不设置显示作者)",
-	    "logo": "(logo的url，为空或不设置显示默认logo)"
+	    "name": "",    //您的文库名称，设置但为空或不设置显示默认名
+	    "ver": "",     //文本版本号或作者，设置但为空不显示，注意，不设置此属性将显示作者
+	    "logo": ""     //logo的url，设置但为空或不设置显示默认logo
 	}
 ```
 6. 点击Atom菜单：
 
 		Packages -> amWiki文库 -> 通过“config.json”文件创建新amWiki文库
 
-7. 此时项目中自动创建了许多内容，其中library文件夹即为您的文档库
+7. 此时项目中自动创建了许多内容，其中 library 文件夹即为您的文档库，编辑您的文库
 
-8. 使用http访问刚刚自动创建的index.html
+8. 使用 http 访问刚刚自动创建的 index.html
 
 
 ## 目录结构
 
 	index.html               //http访问首页
 	amWiki/                  //amWiki工作文件目录
-	library/                 //你的markdown文库目录，所有文件必须使用.md格式
-	  ├ _navigation_.md      //amWiki文库目录导航文件，可自动/手动更新
+	library/                 //您的markdown文库目录，所有文件必须使用.md格式
+	  ├ $navigation.md       //amWiki文库目录导航文件，可自动/手动更新
 	  ├ 首页.md              //内容区默认显示内容
 	  ├ 01-关于amWiki文库/    //markdown文件夹01
       │   ├ 001-关于amWiki   //一些markdown文档，不支持更深的文件夹
@@ -63,35 +65,39 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 
 
 ## 如何编辑
-1. 新建或更改文件夹和文档名，组织你自己的文档结构 (文档必须markdown文档、**使用.md扩展名**)
+1. 新建或更改文件夹和文档名，组织您自己的文档结构 (文档必须markdown文档、**使用.md扩展名**)
 
-2. 编辑markdown文档，制作你自己的文档内容
+2. 编辑markdown文档，制作您自己的文档内容
 
 3. 每个文件夹使用两位编号、每个文件使用三位编号来实现排序，请勿删除，删除后导航将丢失部分文字的显示(但访问正常)
 
 4. library文件夹下`首页.md`为打开时默认的或url hash错误时的显示内容
 
-5. `_navigation_.md`导航文件无需人工维护，创建新文件夹或文件时将自动更新，也可以在菜单栏
+5. `$navigation.md`导航文件无需人工维护，创建新文件夹或文件时将自动更新，也可以在菜单栏
 
-		Packages -> amWiki文库 -> 手动刷新“\_navigation\_.md”
+		Packages -> amWiki文库 -> 手动刷新“$navigation.md”
+
 6. 如果需要在markdown文档中插入图片，请先截图，然后在.md文档对应位置使用
 
 		Ctrl + Shift + V
+
 6. 对于较长文章，可以使用页内目录
 
 		Packages -> amWiki文库 -> 提取h2、h3标题为页内目录
+
 即可在光标处插入。  
 注意：如需提取页内目录，请按顺序使用h1、h2、h3，其中h1仅允许使用一次。
 
-7. 如果本插件升级了，你想更新`项目/amWiki/`文件夹下的web端工作文件，你只需重新打开`config.json`文件，然后在Atom菜单上选择`通过“config.json”文件创建新amWiki文库`即可。  
-这个二次创建操作不会影响你library文件夹下的内容。
+7. 如果本插件升级了，您想更新`项目/amWiki/`文件夹下的web端工作文件，您只需重新打开`config.json`文件，然后在Atom菜单上选择`通过“config.json”文件创建新amWiki文库`即可。  
+这个二次创建操作不会影响您library文件夹下的内容。
 
 
 ## 如何使用
-1. 使用http访问项目的index.html
+
+1. 使用 http 访问项目的 index.html
 
 2. PC端使用左侧导航栏、移动端使用右上角导航弹出菜单切换页面
 
 3. 在导航栏或导航菜单顶部，可以使用 ![](https://raw.githubusercontent.com/TevinLi/amWiki/master/files/icon_filter.png) 栏位对导航目录进行**包含筛选**
 
-4. 如果存在页内目录，直接点击，页内目录使用hash滚动；同时你可以直接带hash分享，以方便他人快速浏览指定内容
+4. 如果存在页内目录，直接点击，页内目录使用hash滚动；同时您可以直接带hash分享，以方便他人快速浏览指定内容
