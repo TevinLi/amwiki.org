@@ -1,5 +1,9 @@
 /**
- * Created by Tevin on 2016/3/22.
+ * amWiki
+ * https://github.com/TevinLi/amWiki
+ * by Tevin
+ *
+ * Released under the MIT license.
  */
 
 $(function () {
@@ -10,7 +14,7 @@ $(function () {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) {
-            return encodeURIComponent(r[2]);
+            return r[2];
         } else {
             return null;
         }
@@ -108,48 +112,7 @@ $(function () {
         $filter.val('').trigger('change');
     });
 
-    //读取导航目录
-    $.get('library/$navigation.md', function (data) {
-        $menuBar.html(marked(data));
-        $filter.parent().after('<div class="menu-fold" title="展开/折叠导航栏所有菜单"></div>');
-        $('.menu-fold').on('click', setMenuFolding);
-        setView();
-    }, 'text');
-
-    //urlEcode默认模式
-    if (!localStorage.urlEcode) {
-        localStorage.urlEcode = 'encode';
-    }
-
-    //解析地址参数
-    var path = getURLParameter('file');
-    if (!path) {
-        path = encodeURI('首页');
-    } else {
-        path = decodeURIComponent(path);
-    }
-    var setView = function () {
-        //console.log(path);
-        if (path == encodeURI('首页')) {
-            $menuBar.find('h4').addClass('on');
-        } else {
-            $menuBar.find('a').each(function () {
-                var $this = $(this);
-                var hsLink = false;
-                if (encodeURI($(this).attr('href').split('file=')[1]) == path) {
-                    hsLink = true;
-                    $this.addClass('on').parent().parent().show().prev('h5').addClass('on');
-                } else {
-                    $this.removeClass('on');
-                }
-                if (hsLink) {
-                    $menuBar.find('h4').removeClass('on');
-                }
-            });
-        }
-    };
-
-    //设置标题hash
+    //设置文章标题hash
     var $view = $('#view');
     var $titles = null;
     var hash = '';
@@ -165,7 +128,7 @@ $(function () {
             if (hash == text) {
                 if (pageWidth <= 720) {
                     $win.scrollTop($title.offset().top - 55);
-                } else { 
+                } else {
                     $win.scrollTop($title.offset().top);
                 }
             }
@@ -188,9 +151,9 @@ $(function () {
     });
 
     //设置js注释隐藏
-    var setJSCommentDisable = function($elm) {
+    var setJSCommentDisable = function ($elm) {
         var $disBtn = $('<div class="lang-off-js-comment">注<i>/</i></div>');
-        $disBtn.on('click',function(){
+        $disBtn.on('click', function () {
             var $this = $(this);
             if ($this.hasClass('on')) {
                 $this.removeClass('on');
@@ -203,47 +166,136 @@ $(function () {
         $elm.prepend($disBtn);
     };
 
+    //解析流程图
+    var createFlowChart = function ($elm) {
+        var code = $elm.text();
+        $elm.text('');
+        var id = 'flowChart' + parseInt(Math.random() * 500);
+        $elm.attr('id', id);
+        var chart = flowchart.parse(code);
+        chart.drawSVG(id, {
+            'line-width': 1.3,
+            'line-length': 30,
+            'line-color': '#666',
+            'text-margin': 10,
+            'font-size': 14,
+            'font': 'normal',
+            'font-family': 'Helvetica',
+            'font-weight': 'normal',
+            'font-color': 'black',
+            'element-color': '#888',
+            'fill': '#fff',
+            'yes-text': '是',
+            'no-text': '否',
+            'arrow-end': 'block-wide-long',
+            'symbols': {},
+            'flowstate': {}
+        });
+    };
+
+    //读取导航目录
+    $.get('library/$navigation.md', function (data) {
+        $menuBar.html(marked(data));
+        $filter.parent().after('<div class="menu-fold" title="展开/折叠导航栏所有菜单"></div>');
+        $('.menu-fold').on('click', setMenuFolding);
+        setView();
+    }, 'text');
+
+    //urlEcode模式
+    if (!localStorage.urlEcode) {
+        localStorage.urlEcode = 'utf8';
+    } else if (localStorage.urlEcode != 'utf8' && localStorage.urlEcode != 'gbk') {
+        localStorage.urlEcode = 'utf8';
+    }
+
+    //解析地址参数
+    var path = getURLParameter('file');
+    if (!path) {
+        path = '首页';
+    } else {
+        path = decodeURI(path);
+    }
+    var setView = function () {
+        if (path == '首页') {
+            $menuBar.find('h4').addClass('on');
+        } else {
+            var hsLink = false;
+            $menuBar.find('a').each(function () {
+                var $this = $(this);
+                if ($(this).attr('href').split('file=')[1] == path) {
+                    hsLink = true;
+                    $this.addClass('on').parent().parent().show().prev('h5').addClass('on');
+                } else {
+                    $this.removeClass('on');
+                }
+            });
+            if (hsLink) {
+                $menuBar.find('h4').removeClass('on');
+            }
+        }
+    };
+
     //加载页面
     var url;
-    if (localStorage.urlEcode == 'encode') {
-        url = 'library/' + encodeURIComponent(path) + '.md?t=' + (new Date()).getTime();
-    } else if (localStorage.urlEcode == 'decode') {
-        url = 'library/' + path + '.md?t=' + (new Date()).getTime();
+    if (localStorage.urlEcode == 'utf8') {
+        url = 'library/' + encodeURI(path) + '.md?t=' + (new Date()).getTime();
+    } else if (localStorage.urlEcode == 'gbk') {
+        url = 'library/' + GBK.encode(path.split('/')[0]);
+        if (path.split('/').length > 1) {
+            url += '/' + GBK.encode(path.split('/')[1]);
+        }
+        url += '.md?t=' + (new Date()).getTime();
     }
-    $.get(url, function (data) {
-        $view.html(marked(data)).find('pre code').each(function (i, block) {
-            var $elm = $(block);
-            var className = $elm.attr('class') || '';
-            if (className.indexOf('lang') >= 0) {
-                hljs.highlightBlock(block);
+    var loadPage = function (count) {
+        if (count == 2) {
+            if (localStorage.urlEcode == 'utf8') {
+                url = 'library/' + GBK.encode(path.split('/')[0]);
+                if (path.split('/').length > 1) {
+                    url += '/' + GBK.encode(path.split('/')[1]);
+                }
+                url += '.md?t=' + (new Date()).getTime();
+            } else if (localStorage.urlEcode == 'gbk') {
+                url = 'library/' + encodeURI(path) + '.md?t=' + (new Date()).getTime();
             }
-            if (className.indexOf('javascript') >= 0) {
-                setJSCommentDisable($elm);
+        } else if (count == 3) {
+            //防止意外跳转循环
+            if (getURLParameter('jump') == 2) {
+                return
+            } else {
+                location.search = '?file=首页&jump=2';
+                return;
             }
-        });
-        setTitleAnchor();
-    }, 'text').fail(function () {
-        if (localStorage.urlEcode == 'encode') {
-            url = 'library/' + path + '.md?t=' + (new Date()).getTime();
-        } else if (localStorage.urlEcode == 'decode') {
-            url = 'library/' + encodeURIComponent(path) + '.md?t=' + (new Date()).getTime();
         }
         $.get(url, function (data) {
-            localStorage.urlEcode = 'decode';
-            $view.html(marked(data)).find('pre code').each(function (i, block) {
-                var $elm = $(block);
+            if (/^\s*<!(DOCTYPE|doctype)/.test(data)) {
+                return loadPage(++count);
+            }
+            if (count == 2) {
+                localStorage.urlEcode = localStorage.urlEcode == 'utf8' ? 'gbk' : 'utf8';
+            }
+            $view.html(marked(data)).find('pre code').each(function (i, element) {
+                var $elm = $(element);
                 var className = $elm.attr('class') || '';
-                if (className.indexOf('lang') >= 0) {
-                    hljs.highlightBlock(block);
+                //流程图
+                if (className.indexOf('lang-flow') >= 0) {
+                    createFlowChart($elm)
                 }
+                //语法高亮
+                else if (className.indexOf('lang') >= 0) {
+                    hljs.highlightBlock(element);
+                }
+                //js注释开关
                 if (className.indexOf('javascript') >= 0) {
                     setJSCommentDisable($elm);
                 }
             });
             setTitleAnchor();
+            //接口ajax测试
+            window.createTesting && createTesting();
         }, 'text').fail(function () {
-            location.search = '?file=首页';
+            return loadPage(++count);
         });
-    });
+    };
+    loadPage(1);
 
 });
