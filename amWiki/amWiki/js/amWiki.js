@@ -41,50 +41,50 @@ $(function () {
         }
         $menuBar.find('h5').removeClass('on').next('ul').hide();
     });
+    $menuBar.on('click', 'strong', function () {
+        var $this = $(this),
+            $next = $this.next('ul');
+        if ($this.hasClass('on')) {
+            $this.removeClass('on');
+            $next.hide();
+        } else {
+            $this.addClass('on');
+            $next.show();
+        }
+    });
+    //展开折叠所有导航栏位按钮
     var setMenuFolding = function () {
         var $this = $(this);
         if ($this.hasClass('on')) {
-            $this.removeClass('on');
+            $this.removeClass('on').find('use').attr('xlink:href', '#navFolder1');
             $menuBar.find('h5').removeClass('on').next('ul').hide();
         } else {
-            $this.addClass('on');
+            $this.addClass('on').find('use').attr('xlink:href', '#navFolder2');
             $menuBar.find('h5').addClass('on').next('ul').show();
         }
     };
 
     //响应式菜单
     var $nav = $('.nav'),
-        $menuStart = $('.menu_icon_start'),
-        $menuClose = $('.close_icon'),
+        $menuIcon = $('.menu_icon'),
         $win = $(window);
-    $menuClose.hide();
-    var pageWidth = $win.width();
-    var hideMenu = function () {
-        if (pageWidth <= 720) {
-            $menuClose.hide();
-            $menuStart.show();
-            $nav.hide();
+    $menuIcon.on('click', function () {
+        var $this = $(this);
+        if ($this.hasClass('close')) {
+            $this.removeClass('close');
+            $menuIcon.find('use').attr('xlink:href', '#navStart');
+            $nav.removeClass('on');
+        } else {
+            $this.addClass('close');
+            $menuIcon.find('use').attr('xlink:href', '#navClose');
+            $nav.addClass('on');
         }
-    };
-    $menuStart.on('click', function () {
-        $menuStart.hide();
-        $menuClose.show();
-        $nav.show();
-    }).show();
-    $menuClose.on('click', function () {
-        hideMenu();
     });
     $menuBar.on('click', 'li a', function () {
-        hideMenu();
+        $nav.removeClass('on');
     });
     $menuBar.on('click', 'h4', function () {
-        hideMenu();
-    });
-    $win.on('resize', function () {
-        pageWidth = $win.width();
-        if (pageWidth > 720 && $nav.is(':hidden')) {
-            $nav.show();
-        }
+        $nav.removeClass('on');
     });
 
     //页面筛选
@@ -112,15 +112,29 @@ $(function () {
         $filter.val('').trigger('change');
     });
 
+    //显示svg
+    if (sessionStorage['amWikiIconsSvg']) {
+        $('#svgSymbols').append(sessionStorage['amWikiIconsSvg']);
+    } else {
+        $.get('amWiki/images/icons.svg', function (svg) {
+            sessionStorage['amWikiIconsSvg'] = svg;
+            $('#svgSymbols').append(svg);
+        }, 'text');
+    }
+
     //设置文章标题hash
     var $view = $('#view');
     var $titles = null;
     var hash = '';
+    var pageWidth = $win.width();
+    $win.on('resize', function () {
+        pageWidth = $win.width();
+    });
     var setTitleAnchor = function (element) {
         if (location.hash && location.hash.length > 1) {
             hash = location.hash.split('#')[1];
         }
-        var anchorHtml = '<a class="anchor" href="#{title}" name="{title}"><img src="amWiki/images/icon_link.png"/></a>';
+        var anchorHtml = '<a class="anchor" href="#{title}" name="{title}"><svg><use xlink:href="#linkAnchor"></use></svg></a>';
         $titles = $view.find('h1,h2,h3');
         $titles.each(function (index, element) {
             var $title = $(element);
@@ -196,8 +210,10 @@ $(function () {
     //读取导航目录
     $.get('library/$navigation.md', function (data) {
         $menuBar.html(marked(data));
-        $filter.parent().after('<div class="menu-fold" title="展开/折叠导航栏所有菜单"></div>');
         $('.menu-fold').on('click', setMenuFolding);
+        $menuBar
+            .find('h4').prepend('<svg><use xlink:href="#navHome"></use></svg>').end()
+            .find('h5').prepend('<svg><use xlink:href="#navArrow"></use></svg>');
         setView();
     }, 'text');
 
@@ -224,7 +240,12 @@ $(function () {
                 var $this = $(this);
                 if ($(this).attr('href').split('file=')[1] == path) {
                     hsLink = true;
-                    $this.addClass('on').parent().parent().show().prev('h5').addClass('on');
+                    //第一层
+                    var $prev = $this.addClass('on').parent().parent().show().prev().addClass('on');
+                    //第二层
+                    if ($prev[0].tagName.toLowerCase() == 'strong') {
+                        $prev.parent().parent().show().prev().addClass('on');
+                    }
                 } else {
                     $this.removeClass('on');
                 }
@@ -241,18 +262,16 @@ $(function () {
         url = 'library/' + encodeURI(path) + '.md?t=' + (new Date()).getTime();
     } else if (localStorage.urlEcode == 'gbk') {
         url = 'library/' + GBK.encode(path.split('/')[0]);
-        if (path.split('/').length > 1) {
-            url += '/' + GBK.encode(path.split('/')[1]);
-        }
+        url += path.split('/')[1] ? '/' + GBK.encode(path.split('/')[1]) : '';
+        url += path.split('/')[2] ? '/' + GBK.encode(path.split('/')[2]) : '';
         url += '.md?t=' + (new Date()).getTime();
     }
     var loadPage = function (count) {
         if (count == 2) {
             if (localStorage.urlEcode == 'utf8') {
                 url = 'library/' + GBK.encode(path.split('/')[0]);
-                if (path.split('/').length > 1) {
-                    url += '/' + GBK.encode(path.split('/')[1]);
-                }
+                url += path.split('/')[1] ? '/' + GBK.encode(path.split('/')[1]) : '';
+                url += path.split('/')[2] ? '/' + GBK.encode(path.split('/')[2]) : '';
                 url += '.md?t=' + (new Date()).getTime();
             } else if (localStorage.urlEcode == 'gbk') {
                 url = 'library/' + encodeURI(path) + '.md?t=' + (new Date()).getTime();
@@ -273,24 +292,28 @@ $(function () {
             if (count == 2) {
                 localStorage.urlEcode = localStorage.urlEcode == 'utf8' ? 'gbk' : 'utf8';
             }
-            $view.html(marked(data)).find('pre code').each(function (i, element) {
-                var $elm = $(element);
-                var className = $elm.attr('class') || '';
-                //流程图
-                if (className.indexOf('lang-flow') >= 0) {
-                    createFlowChart($elm)
-                }
-                //语法高亮
-                else if (className.indexOf('lang') >= 0) {
-                    hljs.highlightBlock(element);
-                }
-                //js注释开关
-                if (className.indexOf('javascript') >= 0) {
-                    setJSCommentDisable($elm);
-                }
-            });
+            $view.html(marked(data))
+                .find('pre code').each(function (i, element) {
+                    var $elm = $(element);
+                    var className = $elm.attr('class') || '';
+                    //流程图
+                    if (className.indexOf('lang-flow') >= 0) {
+                        createFlowChart($elm)
+                    }
+                    //语法高亮
+                    else if (className.indexOf('lang') >= 0) {
+                        hljs.highlightBlock(element);
+                    }
+                    //js注释开关
+                    if (className.indexOf('javascript') >= 0) {
+                        setJSCommentDisable($elm);
+                    }
+                });
+            //设置页面titl
+            $('title').text($view.find('h1').text());
+            //设置描点
             setTitleAnchor();
-            //接口ajax测试
+            //启用接口ajax测试
             window.Testing && new Testing();
         }, 'text').fail(function () {
             return loadPage(++count);
@@ -299,3 +322,4 @@ $(function () {
     loadPage(1);
 
 });
+
