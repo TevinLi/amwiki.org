@@ -184,12 +184,13 @@
                     hljs.highlightBlock(element);
                 }
                 //js注释开关
+                className = $elm.attr('class') || '';
                 if (className.indexOf('javascript') >= 0) {
                     that.setJSCommentDisable($elm);
                 }
             });
         //设置网页title
-        $('title').text(this.$e.view.find('h1').text());
+        $('title').text(this.$e.view.find('h1').eq(0).text());
         //设置描点
         this.setTitlesAnchor();
     };

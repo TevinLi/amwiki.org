@@ -47,6 +47,10 @@
             </div>
             <div class="main" id="main">
                 <article class="markdown-body" id="view"></article>
+                <div class="main-sibling" id="mainSibling">
+                    <p><span>上一篇：</span><a href="#"></a></p>
+                    <p><span>下一篇：</span><a href="#"></a></p>
+                </div>
                 <!-- 接口测试面板 -->
 <div class="testing-box" id="testingBox">
     <h2>请求内容</h2>
@@ -55,6 +59,8 @@
         <select class="testing-send-type" id="testingSendType" title="请求类型">
             <option value="GET">GET</option>
             <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="DELETE">DELETE</option>
         </select>
         <h3>参数列表：</h3>
         <ul class="testing-params" id="testingParam"></ul>

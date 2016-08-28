@@ -1,5 +1,5 @@
 /**
- * @desc 简单ajax测试模块
+ * @desc amWiki Web端·简单ajax测试模块
  * @author Tevin
  * @summary 仅当页面存在“请求地址”、“请求类型”、“请求参数”三个h3标题时触发
  */
@@ -75,7 +75,13 @@
             //抓取请求类型
             else if (name == '请求类型' && !testingReqState[1]) {
                 that.request.method = $.trim($this.next().text()).toUpperCase();
-                if (that.request.method != 'POST' && that.request.method != 'GET') {
+                var methodState = false;
+                ['GET', 'POST', 'PUT', 'DELETE'].forEach(function (value, index) {
+                    if (that.request.method == value) {
+                        methodState = true;
+                    }
+                });
+                if (!methodState) {
                     that.request.method = 'POST';
                 }
                 testingReqState[1] = true;

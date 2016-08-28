@@ -1,5 +1,5 @@
 /**
- * @desc amwiki主执行模块
+ * @desc amWiki Web端·主执行模块
  * @author Tevin
  * @see {@link https://github.com/TevinLi/amWiki}
  * @license MIT - Released under the MIT license.
@@ -99,13 +99,31 @@ $(function () {
                 $menuBar.find('a').each(function () {
                     var $this = $(this);
                     if ($this.text().indexOf(value) >= 0) {
-                        $this.parent().removeClass('off').parent().show().prev('h5').addClass('on');
+                        $this.html($this.text().replace(value, '<mark>' + value + '</mark>'));
+                        var $prev = $this.parent().removeClass('off').parent().show().prev();
+                        //一级目录
+                        if ($prev.is('h5')) {
+                            $prev.addClass('on');
+                        }
+                        //二级目录
+                        else if ($prev.is('strong')) {
+                            $prev.addClass('on').parent().removeClass('off').parent().show().prev().addClass('on');
+                        }
                     } else {
+                        if ($this.find('mark').length > 0) {
+                            $this.text($this.text());
+                        }
                         $this.parent().addClass('off');
                     }
                 });
             } else {
                 $filterClean.addClass('off');
+                $menuBar.find('a').each(function () {
+                    var $this = $(this);
+                    if ($this.find('mark').length > 0) {
+                        $this.text($this.text());
+                    }
+                });
                 $menuBar.find('a').parent().removeClass('off');
             }
         });
@@ -123,11 +141,49 @@ $(function () {
         }
     };
 
+    //改变底部上下篇目
+    var $mainSibling = $('#mainSibling');
+    var changeSibling = function ($item) {
+        //如果未传导航项进来，隐藏上下篇目栏位
+        if (!$item) {
+            $mainSibling.removeClass('on');
+            return;
+        }
+        //获取平级文档链接
+        var getDocLink = function (type, $elm) {
+            var $other = $elm[type]();
+            if ($other.length == 0) {
+                return null;
+            }
+            if ($other.children('ul').length > 0) {
+                return getDocLink(type, $other);
+            } else {
+                return $other.children('a');
+            }
+        };
+        //设置上下篇目导航
+        var setSiblingNav = function(num, $other){
+            if ($other) {
+                $mainSibling.find('a').eq(num)
+                    .attr('href', $other.attr('href'))
+                    .text($other.text());
+            } else {
+                $mainSibling.find('a').eq(num)
+                    .removeAttr('href')
+                    .text('没有了');
+            }
+        };
+        setSiblingNav(0, getDocLink('prev', $item));
+        setSiblingNav(1, getDocLink('next', $item));
+        $mainSibling.addClass('on');
+    };
+
     //改变导航显示
     var changeNav = function (path) {
         if (path == '首页') {
             $menuBar.find('h4').addClass('on');
             $menuBar.find('a').removeClass('on');
+            changeSibling(null);
         } else {
             var hsLink = false;
             $menuBar.find('a').each(function () {
@@ -135,12 +191,13 @@ $(function () {
                 var path2 = $this.attr('href').split('file=')[1];
                 if (path2 == path) {
                     hsLink = true;
-                    //第一层
+                    //本层加高亮
                     var $prev = $this.addClass('on').parent().parent().show().prev().addClass('on');
-                    //第二层
+                    //如果本层处于第二层，对应的第一层加高亮
                     if ($prev[0].tagName.toLowerCase() == 'strong') {
                         $prev.parent().parent().show().prev().addClass('on');
                     }
+                    changeSibling($this.parent());
                 } else {
                     $this.removeClass('on');
                 }
@@ -169,6 +226,7 @@ $(function () {
                 if (localDoc == '') {
                     docs.loadPage('首页', function (type, content) {
                         if (type == 'success') {
+                            docs.renderDoc(content);
                             storage.save('首页', content);
                         }
                     });
@@ -198,19 +256,33 @@ $(function () {
             $menuBar
                 .find('h4').prepend('<svg><use xlink:href="#navHome"></use></svg>').end()
                 .find('h5').prepend('<svg><use xlink:href="#navArrow"></use></svg>');
+            var pathList = [];
             //支持history api时，改变默认事件，导航不再跳转页面
             $menuBar.find('a').each(function () {
                 if (HISTORY_STATE) {
                     var $this = $(this);
+                    var path = $this.attr('href').split('file=')[1];
+                    pathList.push(path);
                     $this.on('click', function () {
-                        var path = $this.attr('href').split('file=')[1];
                         changeNav(path);
                         changePage(path);
                         return false;
                     });
                 }
             });
-            callback && callback();
+            $mainSibling.find('a').on('click', function () {
+                if (HISTORY_STATE) {
+                    var $this = $(this);
+                    var href = $this.attr('href');
+                    if (typeof href != 'undefined' && href != '') {
+                        var path = href.split('file=')[1];
+                        changeNav(path);
+                        changePage(path);
+                    }
+                    return false;
+                }
+            });
+            callback && callback(pathList);
         }, 'text');
     };
 
@@ -225,7 +297,9 @@ $(function () {
     //页面基本
     pageBase();
     //加载导航
-    loadNav(function () {
+    loadNav(function (list) {
+        //核对本地存储
+        storage.checkLibChange(list);
         //首次打开改变导航
         changeNav(path);
         //首次打开改变页面

@@ -1,15 +1,15 @@
 # amWiki 文库
 
-amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文库系统。  
-使用amWiki文库，仅需要您使用atom编辑markdown文档和支持http静态访问网页空间！  
+amWiki是一款基于atom编辑器markdown语法的轻量级wiki文库系统。  
+使用amWiki创建文库，仅需要您使用atom编辑markdown文档和支持http静态访问网页空间！  
+传送门：[amWiki项目托管地址](https://github.com/TevinLi/amWiki "amWiki项目托管地址")
 
 ### amWiki优势
-
 - 文档系统采用markdown语法
 - 不用数据库，文档使用`.md`格式保存本地文件
 - 无需服务端开发，只需支持http静态访问网页空间
 - 一键创建新的文库
-- 自动更新文库导航目录(通过监视文件)
+- 自动更新文库导航目录
 - 支持截图直接粘帖为本地png并插入当前markdown
 - 文档web端自适应显示，适合所有平台
 - 支持接口文档自动抓取内容生成简单的ajax测试
@@ -25,31 +25,33 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 2. 安装Atom插件amWiki，并重启Atom
 	- Atom菜单，File -> Setting -> Install -> 搜索`amWiki`
 	- 或者，运行cmd：`apm install amWiki`
-	- 或者，从Github的 [amWiki项目托管](https://github.com/TevinLi/amWiki) 下载zip，解压到`C:\Users\Administrator\.atom\packages`，并将文件夹名`amWiki-master`改为`amWiki`
+	- 或者，从Github的 [amWiki版本发布](https://github.com/TevinLi/amWiki/releases) 下载zip，解压到`C:\Users\Administrator\.atom\packages`，并将文件夹名`amWiki-master`改为`amWiki`
 
 3. (在本地服务器静态目录)创建一个文件夹
 
 4. 在Atom中 **添加项目文件夹**，并指向刚创建的文件夹
 
 5. 在Atom刚创建的项目下新建`config.json`文件，并输入一下内容：
-```javascript
-	{
-	    "name": "",    //您的文库名称，设置但为空或不设置将显示默认名
-	    "ver": "",     //文本版本号或维护者名号，设置但为空将不显示，注意诺不设置此属性将显示amWiki作者
-	    "logo": "",     //logo的url，设置但为空或不设置将显示默认logo
-	    "testing": true //是否启用接口测试，默认值false
-	}
-```
+    ```javascript
+    {
+        "name": "",      //您的文库名称，设置但为空或不设置将显示默认名
+        "ver": "",       //文本版本号或维护者名号，设置但为空将不显示，注意诺不设置此属性将显示amWiki作者
+        "logo": "",      //logo的url，设置但为空或不设置将显示默认logo
+        "testing": true, //是否启用接口测试，默认值false
+        "colour": ""     //自定义颜色，默认为蓝色
+    }
+    ```
 6. 点击Atom菜单：
 
-		Packages -> amWiki文库 -> 通过“config.json”文件创建新amWiki文库
+		Packages -> amWiki文库 -> 通过“config.json”创建新文库
 
 7. 此时项目中自动创建了许多内容，其中 library 文件夹即为您的文档库，编辑您的文库文档
 
-8. 使用 http 访问刚刚自动创建的 index.html
+8. 使用 F12 启动本地静态服务器，访问刚刚自动创建的 index.html
 
 
 ## 目录结构
+自动生创建的内容目录如下
 
 	index.html               //http访问首页
 	amWiki/                  //amWiki工作文件目录
@@ -57,10 +59,10 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 	  ├ $navigation.md       //amWiki文库目录导航文件，可自动/手动更新
 	  ├ 首页.md              //内容区默认显示内容
 	  ├ 01-关于amWiki文库/    //markdown文件夹01
-      │   ├ 001-关于amWiki   //一些markdown文档，不支持更深的文件夹
+      │   ├ 001-关于amWiki   //一些markdown文档，支持二级目录
       │   └ 002-...
       ├ 02-学习markdown/     //markdown文件夹02
-      │   ├ 001-md入门       //一些markdown文档，不支持更深的文件夹
+      │   ├ 001-md入门       //一些markdown文档，支持二级目录
       │   └ 002-...
       └ 03-...               //更多markdown文件夹
 	(assetes/)               //如果您粘帖截图，图片文件将自动创建在此处
@@ -71,23 +73,20 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 
 2. 编辑markdown文档，制作您自己的文档内容
 
-3. 每个文件夹使用 **两位编号**、每个文件使用 **三位编号** 来实现排序，请勿删除，删除后将无法正常访问
+3. 每个文件夹或文件使用“id-名称”来实现命名排序，请勿删除id，删除后将无法正常工作  
+   id仅允许整数或浮点数类型，且使用连接符或下划线与具体名称组成命名
 
 4. library文件夹下`首页.md`为打开时默认的或url参数错误时的显示内容
 
 5. `$navigation.md`导航文件无需人工维护，创建新文件夹或文件时将自动更新，也可以在菜单栏手动刷新：
 
-		Packages -> amWiki文库 -> 手动刷新“$navigation.md”
+		菜单栏 -> amWiki文库 -> 手动更新当前文库导航文件
 
-6. 如果需要在markdown文档中插入图片，**请先截图**，然后在.md文档对应位置使用快捷键：
+6. 如果需要在markdown文档中插入图片，**请先截图**，然后在.md文档对应位置使用快捷键：`Ctrl + Shift + V`
 
-		Ctrl + Shift + V
-
-7. 对于较长文章，可以使用页内目录，依次操作
-
-		Packages -> amWiki文库 -> 提取h2、h3标题为页内目录
-即可在光标处插入页内目录。  
-注意：如需提取页内目录，请按顺序使用h1、h2、h3，其中h1仅允许使用一次。
+7. 对于较长文章，可以使用页内目录，依次进行如下操作，或使用快捷键`Ctrl + D`，即可在光标处插入页内目录。
+        菜单栏 -> amWiki文库 -> 提取h2、h3标题为页内目录
+注意：请按顺序使用h1、h2、h3，且h1仅使用一次。
 
 8. 如果启用了测试，对于文档中**同时存在“请求地址”“请求类型”“请求参数”三个h3标题**的文档，自动在右上角激活接口测试功能
 	- 请求参数的表格，请按`参数名、类型、必填、描述、默认值`的顺序建立表格，否则不能正常抓取
@@ -95,7 +94,7 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 	- 如果接口需要登录权限，请先登录您自己的系统  
 
 
-9. 如果本插件升级了，您想更新`项目/amWiki/`文件夹下的web端工作文件，您只需重新打开`config.json`文件，然后在Atom菜单上选择`通过“config.json”文件创建新amWiki文库`即可。  
+9. 本插件升级后，您想更新`项目/amWiki/`文件夹下web端的工作文件，您只需重新打开`config.json`文件，然后在Atom菜单上选择`通过“config.json”创建新文库`即可。  
 这个二次创建操作不会影响您 library 与 assetes 文件夹下的内容。
 
 10. 借助版本管理 SVN、Git、Hg，传输协议FTP/SFTP，文件同步Dropbox、百度云等等工具，便捷实现网络访问。
@@ -115,5 +114,13 @@ amWiki是一套非常简单基于atom编辑器markdown语法的轻量级wiki文�
 
 
 ## 后记
-这个项目的灵感来自 [MDwiki](http://www.mdwiki.net/)，一开始，我也准备使用 MDwiki 来写一些文档，但是我很快发现，如果我新增一篇文档，需要我手动去编辑导航栏文件增加一条导航，这个挺不友好的。然后想写一套类似 [微信公众平台开发者文档](http://mp.weixin.qq.com/wiki/home/index.html) 的文档库，发现 MDwiki 由于其容量所限，并不能很好的胜任。  
-于是经过一番折腾，就有了amWiki。
+这个项目的初始灵感来自 MDwiki，它是一个使用 html5/js 纯静态的 markdown wiki 系统。  
+一开始，我也准备使用它来写一些文档，但是我很快发现，如果我新增一篇文档，需要我手动去编辑导航栏文件增加一条导航，这个体验并不友好。然后想写一套类似 [微信公众平台开发者文档](http://mp.weixin.qq.com/wiki/home/index.html) 这样较大的文档库，发现 MDwiki 由于其容量所限，并不能很好的胜任。  
+于是经过一番折腾，就有了amWiki。  
+个人开源不易，欢迎来github上star支持一下，如果发现问题或好的建议，请在github上issues骚扰一下，不胜感谢！
+
+## 更新日志
+[amWiki 版本更新日志](https://github.com/TevinLi/amWiki/blob/master/CHANGELOG.md "amWiki版本更新日志")
+
+## 其他
+QQ交流群：347125653
