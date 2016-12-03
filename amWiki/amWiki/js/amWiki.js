@@ -9,6 +9,10 @@ $(function () {
 
     'use strict';
 
+    /*
+     引入
+     */
+
     //工具集
     var tools = window.tools;
     //文档管理器
@@ -24,9 +28,22 @@ $(function () {
     //是否支持history.state的API (IE9不支持)
     var HISTORY_STATE = 'pushState' in history;
 
+    /*
+     页面基本
+     */
+
+    //页面元素
+    var $menuBar = $('#menuBar'),
+        $mainSibling = $('#mainSibling'),
+        $nav = $('.nav'),
+        $menuIcon = $('.menu_icon'),
+        $filter = $('#menuFilter'),
+        $filterClean = $filter.next('i'),
+        $contents = $('#contents'),
+        $contentsList = $contents.children('.contents-list');
+
     //页面基本显示与操作
-    var $menuBar = $('#menuBar');
-    var pageBase = function () {
+    (function () {
         //菜单折叠
         $menuBar.on('click', 'h5', function () {
             var $this = $(this),
@@ -58,20 +75,7 @@ $(function () {
                 $next.slideDown(200);
             }
         });
-        //展开折叠所有导航栏位按钮
-        /*$('.menu-fold').on('click', function () {
-         var $this = $(this);
-         if ($this.hasClass('on')) {
-         $this.removeClass('on').find('use').attr('xlink:href', '#navFolder1');
-         $menuBar.find('h5').removeClass('on').next('ul').hide();
-         } else {
-         $this.addClass('on').find('use').attr('xlink:href', '#navFolder2');
-         $menuBar.find('h5').addClass('on').next('ul').show();
-         }
-         });*/
         //响应式菜单
-        var $nav = $('.nav'),
-            $menuIcon = $('.menu_icon');
         $menuIcon.on('click', function () {
             var $this = $(this);
             if ($this.hasClass('close')) {
@@ -91,8 +95,6 @@ $(function () {
             $nav.removeClass('on');
         });
         //页面筛选
-        var $filter = $('#menuFilter');
-        var $filterClean = $filter.next('i');
         $filter.on('blur change input propertychange', function () {
             var value = $filter.val();
             if (value != '') {
@@ -141,10 +143,23 @@ $(function () {
                 $('#svgSymbols').append(svg);
             }, 'text');
         }
-    };
+        //目录悬浮窗展开折叠
+        $contents.children('.btn').on('click', function (e) {
+            $contents.toggleClass('on').removeClass('hover');
+        });
+        $contents.hover(function(){
+            $contents.addClass('hover');
+        },function(){
+            $contents.removeClass('hover');
+        });
+
+    })();
+
+    /*
+     业务操作函数
+     */
 
     //改变底部上下篇目
-    var $mainSibling = $('#mainSibling');
     var changeSibling = function ($item) {
         //如果未传导航项进来，隐藏上下篇目栏位
         if (!$item) {
@@ -208,6 +223,7 @@ $(function () {
                 $menuBar.find('h4').removeClass('on');
             }
         }
+        curPath = path;
     };
 
     //改变页面
@@ -251,7 +267,8 @@ $(function () {
                     testing && testing.crawlContent();
                 }
                 //如果服务器文档与本地缓存一致，不进行任何操作
-                else {}
+                else {
+                }
                 //记录文档打开数
                 storage.increaseOpenedCount(path);
             }
@@ -296,13 +313,54 @@ $(function () {
         }, 'text');
     };
 
+    /*
+     启动应用
+     */
+
     //解析地址参数
-    var path = tools.getURLParameter('file');
-    if (!path) {
-        path = '首页';
-    } else {
-        path = decodeURI(path);
+    var curPath = tools.getURLParameter('file');
+    curPath = !curPath ? '首页' : decodeURI(curPath);
+
+    //加载导航
+    loadNav(function (list) {
+        //核对本地存储
+        storage.checkLibChange(list);
+        //首次打开改变导航
+        changeNav(curPath);
+        //首次打开改变页面
+        changePage(curPath, true);
+    });
+
+    //history api 浏览器前进后退操作响应
+    if (HISTORY_STATE) {
+        $(window).on('popstate', function (e) {
+            var path;
+            //当有状态记录时，直接跳转
+            if (e.originalEvent.state) {
+                path = e.originalEvent.state.path;
+                //改变导航
+                changeNav(path);
+                //改变页面
+                changePage(path, true);
+            }
+            //当没有状态记录时
+            else {
+                path = tools.getURLParameter('file');
+                path = !path ? '首页' : decodeURI(path);
+                //判断url是否和当前一样，不一样才跳转（同页hash变化不跳转）
+                if (path != curPath) {
+                    //改变导航
+                    changeNav(path);
+                    //改变页面
+                    changePage(path, true);
+                }
+            }
+        });
     }
+
+    /*
+     回调中转
+     */
 
     //重建缓存
     search.onNeedRebuildStorage = function (callback) {
@@ -329,29 +387,6 @@ $(function () {
             load(item, i);
         }
     };
-
-    //页面基本
-    pageBase();
-    //加载导航
-    loadNav(function (list) {
-        //核对本地存储
-        storage.checkLibChange(list);
-        //首次打开改变导航
-        changeNav(path);
-        //首次打开改变页面
-        changePage(path, true);
-    });
-
-    //history api 浏览器前进后退操作响应
-    if (HISTORY_STATE) {
-        $(window).on('popstate', function (e) {
-            var path = e.originalEvent.state.path;
-            //改变导航
-            changeNav(path);
-            //改变页面
-            changePage(path, true);
-        });
-    }
 
 });
 
