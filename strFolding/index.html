@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>字符串“折叠” - Demo</title>
+        <script src="js/jquery-2.2.4.min.js"></script>
+        <script src="js/strFolding.js"></script>
+        <script>
+            var sf;
+            $(function() {
+                sf = new StrFolding({
+                    statistics: function(data) {
+                        console.log(JSON.stringify(data));
+                        var html = data == 'compress' ? '压缩' : '解压';
+                        html += '耗时： <b>' + data.time + '</b> <br>';
+                        html += 'UTF-8字节统计：原文 <b>' + data.utf8.input + '</b> 字节，压缩结果 <b>' + data.utf8.output + 
+                            '</b> 字节，压缩率 <b>' + data.utf8.percent + '</b> <br>';
+                        html += 'UTF-16字节统计：原文 <b>' + data.utf16.input + '</b> 字节，压缩结果 <b>' + data.utf16.output + 
+                            '</b> 字节，压缩率 <b>' + data.utf16.percent + '</b> <br>';
+                        html += '提取字典，中文词组 <b>' + data.libraryCn + '</b> 个，英文组合/数字组合 <b>' + data.libraryEn + '</b> 个';
+                        $('#static').html(html);
+                    }
+                });
+                $('#compress').on('click', function() {
+                    var original = $('#original').val();
+                    if(original.length == 0) {
+                        return;
+                    }
+                    $('#result').val(sf.encode(original));
+                });
+                $('#deCpmpress').on('click', function() {
+                    var result = $('#result').val();
+                    if(result.length == 0) {
+                        return;
+                    }
+                    $('#original').val(sf.decode(result));
+                });
+            });
+        </script>
+        <style>
+            body {
+                background: #ddd;
+            }
+            
+            .box {
+                margin: 30px;
+                padding: 30px;
+                background: #fff;
+                border-radius: 5px;
+            }
+            
+            .box-title {
+                margin-bottom: 20px;
+                border-bottom: #ccc 1px solid;
+            }
+            
+            .panel:after {
+                display: block;
+                width: 100%;
+                height: 0;
+                clear: both;
+                content: ' ';
+            }
+            
+            .original,
+            .result {
+                float: left;
+                width: 30%;
+                min-height: 500px;
+                padding: 5px;
+                border: #ccc 1px solid;
+                border-radius: 5px;
+            }
+            
+            .panel-buttom {
+                float: left;
+                margin: 0 20px;
+                padding-top: 10px;
+            }
+            
+            button {
+                display: block;
+                margin-bottom: 15px;
+                padding: 4px 12px;
+            }
+            
+            .static {
+                margin-top: 20px;
+                padding: 20px;
+                background: #eee;
+            }
+            .static p {
+                font-size: 14px;
+                line-height: 24px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="box">
+            <div class="box-title">
+                <h2>字符串“折叠” strFolding.js</h2></div>
+            <div class="box-content">
+                <div class="panel">
+                    <textarea class="original" id="original" placeholder="请输入原文"></textarea>
+                    <div class="panel-buttom">
+                        <button id="compress">压缩>></button>
+                        <button id="deCpmpress"><<解缩</button>
+                    </div>
+                    <textarea class="result" id="result" placeholder="请输入压缩结果"></textarea>
+                </div>
+                <div class="static"><strong>统计信息</strong><p id="static"></p></div>
+            </div>
+        </div>
+    </body>
+
+</html>
