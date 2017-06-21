@@ -434,8 +434,7 @@ $(function () {
 
     //音频
     var v = new Audio();
-    //v.src = 'media/sound.mp3';
-    v.src = '/static/yx2016/media/sound.mp3';
+    v.src = 'media/sound.mp3';
     v.loop = true;
     v.play();
     $('#music').on('click', function() {
