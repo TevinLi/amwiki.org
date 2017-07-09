@@ -3,7 +3,7 @@
 ## 开始一个新文库的步骤
 
 1. ##### 下载 Github 出品的开源文本编辑器 Atom，并安装  
-   [Atom 官网](https://atom.io/ "Atom官网") ｜ [搜索 “Atom下载”](https://www.baidu.com/s?wd=atom%E4%B8%8B%E8%BD%BD)
+   [Atom 官网](https://atom.io/ "Atom官网") ｜ [搜索 “Atom下载”](https://www.baidu.com/s?wd=atom%E4%B8%8B%E8%BD%BD)  
    ![](https://amwiki.xf09.net/docs/assets/001.tiny/02-0e63f48d.png)
 
 2. ##### 安装 Atom 完成之后，再安装插件 amWiki，您可以通过以下三种途径安装：
