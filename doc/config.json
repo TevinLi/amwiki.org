@@ -1,4 +1,5 @@
 {
-  "testing": true,
-  "github-url": "https://github.com/TevinLi/amWiki"
+    "name": "amWiki 文档中心",
+    "testing": true,
+    "github-url": "https://github.com/TevinLi/amWiki"
 }
