@@ -23,9 +23,9 @@
     ![](https://amwiki.xf09.net/docs/assets/001.tiny/03-7ce48bba.png)
 
 6. ##### 在 Atom 刚创建的项目下新建 `config.json` 文件，并按 json 格式配置以下属性：
-    - **name**，您的文库名称，设置但为空或不设置将显示默认名
-    - **ver**，文本版本号或维护者名号，设置但为空将不显示，注意诺不设置此属性将显示 amWiki 作者
-    - **logo**，logo 的 url，设置但为空或不设置将显示默认 logo
+    - **name**，文库名称，不设置将显示默认名称
+    - **ver**，文库版本号或维护者名称，设置为空字符串将不显示，不设置将显示 amWiki 作者
+    - **logo**，logo 的 url，不设置将显示默认 logo
     - **colour**，自定义颜色，默认为蓝色
     - **testing**，是否启用接口测试模块，默认值 false  
     - 例如：
