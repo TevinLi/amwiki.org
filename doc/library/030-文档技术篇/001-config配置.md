@@ -4,7 +4,7 @@
 
 ## 预备知识
 - config 文件使用 **json 格式** 保存当前文库创建和工作必要的配置信息
-> 什么是 json ？ 请看 [百度百科JSON](https://baike.baidu.com/item/JSON) or [维基百科JSON](https://en.wikipedia.org/wiki/JSON)
+> 什么是 json ？ 请前往：[百度百科JSON](https://baike.baidu.com/item/JSON) or [维基百科JSON](https://en.wikipedia.org/wiki/JSON)
 - config 所有配置项皆为可选
 - 配置变更后，您需要重新创建文库才能生效
 
