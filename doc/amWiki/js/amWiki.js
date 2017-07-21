@@ -411,6 +411,7 @@ $(function () {
         if (!withOutPushState && HISTORY_STATE) {
             var path2 = path.replace(/&/g, '%26');  //对带 & 符号的地址特殊处理
             history.pushState({path: path}, '', '?file=' + path2);
+            _hmt.push(['_trackPageview', '?file=' + path2]);
         }
         //第二步，加载服务器上的文档资源，如果有更新重新渲染
         docs.loadPage(path, function (state, content) {
