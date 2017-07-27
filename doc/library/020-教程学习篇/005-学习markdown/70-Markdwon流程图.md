@@ -1,10 +1,11 @@
-# amWiki 与流程图
+# Markdown 流程图
 
 amWiki 使用 [flowchart.js](https://github.com/adrai/flowchart.js) 进行流程图渲染，它是一款将文本表达式绘制为简单的 svg 流程图的图形库  
 流程图代码块和语法高亮类似，不过类型声明须用 `flow` 关键字
     ```flow
     //your flow text here
     ```
+（PS: 此语法不是所有 Markdown 平台都支持）
 
 ## 流程图样例
 代码：
@@ -73,7 +74,8 @@ c2(no)->op2->e
 
 1. `->` 流程定义符，连接两个元素
 2. `branch` 设置 condition 类型元素的两个分支，有 `yes`/`no` 两个值，其他元素无效
-3. `direction` 定义流程走线方向，有 `left`/`right`/`top`/`bottom` 四个值，所有元素有效，此项配置可选 (ps:此属性容易造成渲染 bug)  
+3. `direction` 定义流程走线方向，有 `left`/`right`/`top`/`bottom` 四个值，所有元素有效，此项配置可选  
+   （PS: 此属性目前有一定几率触发图形错位等问题）
 
 小提示：
 - 继续注意空格，`->` 前后都不能有空格

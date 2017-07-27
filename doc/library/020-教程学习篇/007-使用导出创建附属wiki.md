@@ -2,6 +2,8 @@
 
 “导出文库为 Github Wiki”，可以将一个 amWiki 文库导出为 Github Project Wiki
 
+[TOC]
+
 ## Pages 和项目附属 Wiki 的区别
 First，强调一个问题！Github Pages 和 Github Project Wiki 是完全不同的两个事物！
 

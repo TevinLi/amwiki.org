@@ -1,0 +1,3 @@
+# Markdown 脚注 (footnote)
+
+待续...
