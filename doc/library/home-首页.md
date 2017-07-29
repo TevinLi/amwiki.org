@@ -5,7 +5,7 @@
 ![欢迎使用amWiki！](http://amwiki.org/doc/amWiki/images/logo.png "欢迎使用amWiki！")  
 
 ### 欢迎使用 amWiki 轻文库!
-amWiki 是一款基于 Javascript 脚本语言、依赖 Atom 编辑器、使用 Markdown 标记语法的轻量级开源 wiki 文库系统。  
+amWiki 是一款由 JS 开发、依赖 Atom 或 Nodejs-Npm 的 Markdown 轻量级前端化开源文库系统。  
 amWiki 致力于让大家可以更简单、更便捷的建设个人和团队文库系统！  
 
 [ [Fork on Github](https://github.com/TevinLi/amWiki) ]
