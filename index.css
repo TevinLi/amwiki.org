@@ -84,6 +84,25 @@ body {
 .main a:hover {
     text-decoration: underline;
 }
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    line-height: 35px;
+    color: #666;
+    text-align: center;
+    background: #fff;
+}
+footer hr {
+    border: none;
+    border-top: #ccc 1px solid;
+}
+footer a {
+    display: inline-block;
+    font-weight: normal;
+    color: #666;
+}
 
 
 @media screen and (max-width: 750px) {

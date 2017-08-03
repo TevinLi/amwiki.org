@@ -180,7 +180,8 @@ aside .back-top:hover .back-text{display:block;color:#aaa;}
 
 /* ---------- footer ---------- */
 footer{position:relative;width:100%;}
-footer .signature{position:absolute;right:20px;bottom:-5px;color:#999;}
+footer .copyright{width:100%;margin-top:-12px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+footer .signature{position:absolute;right:20px;bottom:2px;color:#999;}
 
 /* ---------- lowBrowser ---------- */
 #lowBrowser{position:fixed;top:0;left:0;z-index:9999999;width:100%;height:100%;}
@@ -260,6 +261,7 @@ footer .signature{position:absolute;right:20px;bottom:-5px;color:#999;}
 
     /* ---------- footer ---------- */
     footer{position:relative;width:100%;height:0;}
+    footer .copyright{display:none;}
     footer .signature{position:absolute;right:12px;bottom:6px;color:#ccc;}
     footer .signature a{color:#aaa;}
 
