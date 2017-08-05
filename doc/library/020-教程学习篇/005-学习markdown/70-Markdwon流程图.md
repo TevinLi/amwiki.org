@@ -5,7 +5,7 @@ amWiki 使用 [flowchart.js](https://github.com/adrai/flowchart.js) 进行流程
     ```flow
     //your flow text here
     ```
-（PS: 此语法不是所有 Markdown 平台都支持）
+
 
 ## 流程图样例
 代码：

@@ -34,7 +34,7 @@ Atom 是 Github 开发的开源跨平台的编辑器，原生支持编辑 Markdo
 
 ![](https://amwiki.xf09.net/docs/assets/001.tiny/13-fbed2544.png)
 
-### todo效果-list
+### 复选框效果-todo
 输入`t + Enter`
 
 ![](https://amwiki.xf09.net/docs/assets/001.tiny/13-01a27e09.png)
@@ -42,6 +42,7 @@ Atom 是 Github 开发的开源跨平台的编辑器，原生支持编辑 Markdo
 
 ## 内置 Markdown 即时预览插件
 编辑 Markdown 文档时，使用快捷键 `ctrl + shift + m` 即可在窗口右侧打开 Atom 内置的 markdown-preview 即时预览模块  
-(PS：amWiki 中由于粘贴截图的地址是相对 index.html 创建的，故无法在 preview 中预览)
 
-![](https://amwiki.xf09.net/docs/assets/001.tiny/13-75213ccd.png)
+![](https://amwiki.xf09.net/docs/assets/001.tiny/13-75213ccd.png)  
+
+(PS：amWiki 中由于粘贴截图的地址是相对 index.html 创建的，故无法在 preview 中预览)
