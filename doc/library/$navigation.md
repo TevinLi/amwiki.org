@@ -33,8 +33,9 @@
 
 ##### 方法经验篇
 - [amWiki转接到任意域名进行接口测试](?file=040-方法经验篇/001-amWiki转接到任意域名进行接口测试 "amWiki转接到任意域名进行接口测试")
-- [使用GithubPages搭建自己的wiki](?file=040-方法经验篇/002-使用GithubPages搭建自己的wiki "使用GithubPages搭建自己的wiki")
-- [使用Nginx验证保护文库](?file=040-方法经验篇/003-使用Nginx验证保护文库 "使用Nginx验证保护文库")
+- [使用GithubPages搭建自己的文库](?file=040-方法经验篇/002-使用GithubPages搭建自己的文库 "使用GithubPages搭建自己的文库")
+- [使用Nginx目录验证保护文库](?file=040-方法经验篇/003-使用Nginx目录验证保护文库 "使用Nginx目录验证保护文库")
+- [利用library-prefix实现登陆验证](?file=040-方法经验篇/004-利用library-prefix实现登陆验证 "利用library-prefix实现登陆验证")
 
 ##### 示范案例篇
 - **文档示范**
