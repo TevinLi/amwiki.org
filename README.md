@@ -1,5 +1,7 @@
 # amwiki.org
 
-amWiki 官网已经从 tevinli.github.io 分离，单独开了一个 repository
+![](http://img.amwiki.org//global/logo.320-120.png)
 
-[文档中心：amwiki.org/doc](https://amwiki.org/doc/)
+amWiki 官网现在已经从 tevinli.github.io 分离，单开一个 repository
+
+[ [文档中心：amwiki.org/doc](https://amwiki.org/doc/) ]
