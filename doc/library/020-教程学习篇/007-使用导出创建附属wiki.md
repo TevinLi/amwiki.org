@@ -1,12 +1,12 @@
 # 使用导出创建附属 wiki
 
-“导出文库为 Github Wiki”，可以将一个 amWiki 文库导出为 Github Project Wiki
+“导出文库为 Github Wiki”，可以将一个 amWiki 文库导出为 Github Repository Wiki
 
 [TOC]
 
 ## Pages 和项目附属 Wiki 的区别
 
-First，强调一个问题！Github Pages 和 Github Project Wiki 是完全不同的两个事物！
+First，强调一个问题！Github Pages 和 Github Repository Wiki 是完全不同的两个事物！
 
 ### Github Pages：
 
@@ -16,7 +16,7 @@ First，强调一个问题！Github Pages 和 Github Project Wiki 是完全不�
 - 所有页面的布局由自己定义，支持 css、js
 - 可以使用 Bootstrap、AmazeUI、WeUI 和 Angular、Vue、React 创建富 web 应用
 
-### Github Project Wiki：
+### Github Repository Wiki：
 
 - 隶属于每一个项目仓库  
   也就是每一个仓库都携带有自己独立的 wiki，这个 wiki 有自己独立的入口：  
@@ -31,7 +31,7 @@ First，强调一个问题！Github Pages 和 Github Project Wiki 是完全不�
 1. **amWiki 创建的文库，本身就是为 Github Pages 打造的**  
    无需任何修改可以直接上传到项目 xxx.github.io，并在 Pages 上打开
 
-2. **amWiki 导出功能创建的内容，则是为 Github Project Wiki 准备的**  
+2. **amWiki 导出功能创建的内容，则是为 Github Repository Wiki 准备的**  
    导出功能是以 wiki 要求的规则，重新输出整个文库，不只是平级创建所有文档、左侧导航，还包括修改每篇文档上的图片地址链接地址等等
 
 ## 使用导出
