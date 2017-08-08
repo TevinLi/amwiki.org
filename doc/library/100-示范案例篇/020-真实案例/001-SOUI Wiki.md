@@ -8,12 +8,12 @@
 GitHub Pages:  
 [https://soui2.github.io/SOUIWiki/](https://soui2.github.io/SOUIWiki/)  
 
-GitHub Porject Wiki:  
+GitHub Repository Wiki:  
 [https://github.com/SOUI2/soui/wiki](https://github.com/SOUI2/soui/wiki)  
 
 ## 页面截图
 GitHub Pages:  
 ![](assets/100/20170719-16668242.png=600-)  
 
-GitHub Porject Wiki:  
+GitHub Repository Wiki:  
 ![](assets/100/20170806-91e7b88f.png=600-)  
