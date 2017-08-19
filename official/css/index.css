@@ -18,7 +18,7 @@ nav a:hover{background:rgba(255,255,255,.2);}
 .subject h1:after{right:-30px;}
 .subject h1 img{display:block;max-width:90%;margin:0 auto 12px;}
 .subject h1 span{display:inline-block;font-size:18px;color:#fff;letter-spacing:7px;text-indent:7px;}
-.subject .links a{display:inline-block;width:108px;height:33px;margin:0 10px;line-height:28px;background:#fff;border-radius:5px;}
+.subject .links a{display:inline-block;width:108px;height:33px;margin:0 10px;padding-top:5px;background:#fff;border-radius:5px;}
 .subject .links a:active{box-shadow:inset rgba(0,0,0,.35) 1px 2px 4px;}
 .subject .links a:active i,.subject .links a:active span{position:relative;top:1px;}
 .subject .links i,span{vertical-align:middle;}
