@@ -13,7 +13,7 @@ section .content{padding:20px 5px 0;}
 section .content p{padding-bottom:10px;}
 section .content table{border-left:#ddd 1px solid;border-top:#ddd 1px solid;}
 section .content td,section .content th{padding:5px 10px;text-align:center;border-right:#ddd 1px solid;border-bottom:#ddd 1px solid;}
-footer{text-align:center;color:#666;}
+footer{padding-bottom:20px;text-align:center;color:#666;}
 footer a{display:inline-block;color:#666;}
 footer a:hover{text-decoration:underline;}
 
@@ -32,4 +32,10 @@ footer a:hover{text-decoration:underline;}
 .donate-type th:nth-child(1){background:#0094d9;}
 .donate-type th:nth-child(2){background:#24b33c;}
 .donate-type th:nth-child(3){background:#ff4040;}
+
+/* ---------- about ---------- */
+.about-schedule tr td:nth-child(2),.about-log tr td:nth-child(3){padding:10px;text-align:left;}
+.about-schedule tr td:nth-child(2) ul,.about-log tr td:nth-child(3) ul{padding-left:30px;list-style:decimal;}
+.about-schedule tr td:nth-child(2) ul ul,.about-log tr td:nth-child(3) ul ul{list-style:lower-roman;}
+.about .content .about-log p{padding:0;}
 
