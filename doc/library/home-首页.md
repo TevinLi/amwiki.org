@@ -11,8 +11,8 @@ amWiki 致力于让大家可以更简单、更便捷的建设个人和团队文�
 [ [Fork on Github](https://github.com/TevinLi/amWiki) ]
 
 GitHub:  
-[![](https://img.shields.io/github/stars/TevinLi/amWiki.svg?style=social&label=Star)](https://github.com/TevinLi/amWiki "GitHub Stars") [![](https://img.shields.io/github/forks/TevinLi/amWiki.svg?style=social&label=Fork)](https://github.com/TevinLi/amWiki "GitHub Forks") [![](https://img.shields.io/github/issues-raw/TevinLi/amWiki.svg)](https://github.com/TevinLi/amWiki "GitHub Open Issues") [![](https://img.shields.io/github/issues-closed-raw/TevinLi/amWiki.svg)](https://github.com/TevinLi/amWiki "GitHub Closed Issues")  
-[![GitHub Tag](https://img.shields.io/github/tag/TevinLi/amWiki.svg)](https://github.com/TevinLi/amWiki "GitHub Tag") [![apm](https://img.shields.io/github/license/TevinLi/amWiki.svg)](https://atom.io/packages/amWiki "MIT License")  
+[![](https://img.shields.io/github/stars/TevinLi/amWiki.svg?style=social&label=Star)](https://github.com/TevinLi/amWiki "GitHub Stars")  [![](https://img.shields.io/github/forks/TevinLi/amWiki.svg?style=social&label=Fork)](https://github.com/TevinLi/amWiki "GitHub Forks")  [![](https://img.shields.io/github/issues-raw/TevinLi/amWiki.svg)](https://github.com/TevinLi/amWiki "GitHub Open Issues")  [![](https://img.shields.io/github/issues-closed-raw/TevinLi/amWiki.svg)](https://github.com/TevinLi/amWiki "GitHub Closed Issues")  
+[![](https://img.shields.io/github/tag/TevinLi/amWiki.svg)](https://github.com/TevinLi/amWiki "GitHub Tag") [![](https://img.shields.io/npm/l/amwiki.svg)](https://github.com/TevinLi/amWiki "MIT License")  
 APM:  
 [![APM Version](https://img.shields.io/apm/v/amWiki.svg)](https://atom.io/packages/amWiki "APM Version") [![APM Downloads](https://img.shields.io/apm/dm/amWiki.svg)](https://atom.io/packages/amWiki "APM Downloads")  
 NPM:  

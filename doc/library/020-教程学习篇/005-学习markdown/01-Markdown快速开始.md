@@ -170,14 +170,15 @@ _斜体_
 
 ### <font color=#C71585>【html】</font>
 可以直接在文档里书写 HTML，不需要额外标注这是 HTML
-
-    <div>division</div>
+```html
+<div style="color:orange">division</div>
+```
 
 渲染效果：  
-<div>division</div>
+<div style="color:orange">division</div>
 
 
-## 研究更多 markdown 语法详细细节
+## 研究更多 markdown 语法细节
 
-- [创始人 John Gruber 的 Markdown 语法说明](http://daringfireball.net/projects/markdown/syntax)  
+- [John Gruber 的 Markdown 语法说明](http://daringfireball.net/projects/markdown/syntax)  
 - [Markdown 中文版语法说明](http://wowubuntu.com/markdown/)
