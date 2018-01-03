@@ -4,4 +4,4 @@
 
 amWiki 官网现在已经从 tevinli.github.io 分离，单开一个 repository
 
-[ [文档中心：amwiki.org/doc](https://amwiki.org/doc/) ]
+[ [文档中心：amwiki.org/doc](http://amwiki.org/doc/) ]
