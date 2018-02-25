@@ -109,7 +109,7 @@ _斜体_
     ![alt文本](https://amwiki.xf09.net/docs/assets/logo.png "Title")
 
 渲染效果：  
-![alt文本](https://amwiki.xf09.net/docs/assets/logo.png "Title")
+![alt文本](assets/logo.320-120.png "Title")
 
 ### <font color=#C71585>【代码】</font>
 使用反引号 \` 来标记代码区段

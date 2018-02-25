@@ -42,7 +42,7 @@ server {
 比如，我们继续把地址 https://amwiki.xf09.net/docs/ 下所有文档转接到任意域名 /wiki 路径下  
 只需要如下配置 AutoResponder：   
 
-![](https://amwiki.xf09.net/docs/assets/001.tiny/07-c1ef9812.png)  
+![](assets/001/07-c1ef9812.png)  
 规则代码如下：
 
     regex:.+abc123\.com\/wiki\/(.+)$
@@ -60,10 +60,10 @@ server {
 
 - **第一步，开启 https 解码**  
   Tools -> Fiddler Options -> HTTPS -> 依次勾选如下  
-  ![](https://amwiki.xf09.net/docs/assets/001.tiny/07-ea6ad78e.png)  
+  ![](assets/001/07-ea6ad78e.png)  
 - **第二步，是安装 Fiddler 根证书**  
   打开 http://localhost:8888/ 下载Fiddler 根证书并安装  
-  ![](https://amwiki.xf09.net/docs/assets/001.tiny/07-c59334fc.png)  
+  ![](assets/001/07-c59334fc.png)  
 - **第三步，按照 http 的方式进行代理**  
   例如，我们转接到百度域名的一个路径下
 
